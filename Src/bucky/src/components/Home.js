@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import icon from "../images/icon.jpg";
+import icon from "../images/icon.png";
 import myFirebase from "../firebase/firebase";
 import firebase from "firebase/app"
 
@@ -56,8 +56,8 @@ class Home extends Component {
                     </div>
 
                     <form>
-                        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" onChange={this.emailHandler}></input>
-                        <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" onChange={this.pwhandler}></input>
+                        <input type="text" id="login" class="fadeIn second" name="loginName" placeholder="login" onChange={this.emailHandler}></input>
+                        <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password" onChange={this.pwhandler}></input>
                         <input type="button" class="fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
                     </form>
 
