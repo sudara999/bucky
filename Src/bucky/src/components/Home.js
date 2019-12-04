@@ -16,11 +16,11 @@ class Home extends Component {
         password: ""
     }
 
-    emailHandler = ({target}) => {
+    emailHandler = ({ target }) => {
         this.setState({ email: target.value });
     }
 
-    pwhandler = ({target}) => {
+    pwhandler = ({ target }) => {
         this.setState({ password: target.value });
     }
 
@@ -32,13 +32,13 @@ class Home extends Component {
 
     googleSignin = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
-        myFirebase.auth().signInWithPopup(provider).then(function(result) {
+        myFirebase.auth().signInWithPopup(provider).then(function (result) {
             // This gives you a Google Access Token. You can use it to access the Google API.
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
             // ...
-            }).catch(function(error) {
+        }).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -47,10 +47,10 @@ class Home extends Component {
             // The firebase.auth.AuthCredential type that was used.
             var credential = error.credential;
             // ...
-            });
+        });
     }
 
-    render() {  
+    render() {
         return (
             <div>
                 <h1 id="title">Welcome to Bucky</h1>
@@ -61,37 +61,23 @@ class Home extends Component {
                             <img src={icon} id="icon" />
                         </div>
 
-                    <form>
-                        <input type="text" id="login" class="fadeIn second" name="loginName" placeholder="login" onChange={this.emailHandler}></input>
-                        <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password" onChange={this.pwhandler}></input>
-                        <input type="button" class="fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
-                    </form>
-
-                    <div id="formFooter">
-                        <a className="underlineHover" href="#">No account? Sign Up Here!</a>
-                        <div id="googleSignin">
-                            <span> Sign in with Google </span>
-                            <button onClick={this.googleSignin}>
-                                Sign in
-                            </button>
-                        </div>    
-                    </div>
+                        <form>
+                            <input type="text" id="login" class="fadeIn second" name="loginName" placeholder="login" onChange={this.emailHandler}></input>
+                            <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password" onChange={this.pwhandler}></input>
+                            <input type="button" class="fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
+                        </form>
 
                         <div id="formFooter">
-                            <a className="underlineHover" href="">No account? Sign Up Here!</a>
-                            <br></br>
-                            <a className="underlineHover" href="">Or continue as guest</a>
+                            <a className="underlineHover" href="#">No account? Sign Up Here!</a>
                             <div id="googleSignin">
                                 <span> Sign in with Google </span>
-                                <GoogleLogin
-                                    clientId="1017650296184-h09julkd67o5m4rbji0dn964g9ppseeq.apps.googleusercontent.com"
-                                    buttonText="Sign in"
-                                    onSuccess={logged}
-                                    onFailure={notLogged}
-                                    cookiePolicy={'single_host_origin'}
-                                />
+                                <button onClick={this.googleSignin}>
+                                    Sign in
+                            </button>
                             </div>
                         </div>
+
+
 
                     </div>
 
