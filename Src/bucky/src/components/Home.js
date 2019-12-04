@@ -1,28 +1,56 @@
 import React, { Component } from 'react';
 import icon from "../images/icon.png";
-import GoogleLogin from "react-google-login";
-import MainPage from './MainPage'
-import SignUp from './SignUp'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
-
-
-
-let logged = (response) => {
-    alert("AUTHENTICATED!");
-    console.log(response.googleId)
-}
-
-let notLogged = (response) => {
-    console.log(response);
-}
+import myFirebase from "../firebase/firebase";
+import firebase from "firebase/app"
 
 class Home extends Component {
-    render() {
+
+    state = {
+        email: "",
+        password: ""
+    }
+
+    emailHandler = ({target}) => {
+        this.setState({ email: target.value });
+    }
+
+    pwhandler = ({target}) => {
+        this.setState({ password: target.value });
+    }
+
+    submitHandler = () => {
+        myFirebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch((err) => {
+            alert("ERR!");
+        });
+    }
+
+    googleSignin = () => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        myFirebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+            }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            });
+    }
+
+    render() {  
         return (
             <div>
                 <h1 id="title">Welcome to Bucky</h1>
@@ -33,11 +61,21 @@ class Home extends Component {
                             <img src={icon} id="icon" />
                         </div>
 
-                        <form>
-                            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login"></input>
-                            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password"></input>
-                            <input type="submit" class="fadeIn fourth" value="Log In"></input>
-                        </form>
+                    <form>
+                        <input type="text" id="login" class="fadeIn second" name="loginName" placeholder="login" onChange={this.emailHandler}></input>
+                        <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password" onChange={this.pwhandler}></input>
+                        <input type="button" class="fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
+                    </form>
+
+                    <div id="formFooter">
+                        <a className="underlineHover" href="#">No account? Sign Up Here!</a>
+                        <div id="googleSignin">
+                            <span> Sign in with Google </span>
+                            <button onClick={this.googleSignin}>
+                                Sign in
+                            </button>
+                        </div>    
+                    </div>
 
                         <div id="formFooter">
                             <a className="underlineHover" href="">No account? Sign Up Here!</a>
