@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import icon from "../images/icon.jpg";
+import icon from "../images/icon.png";
 import GoogleLogin from "react-google-login";
 
 let logged = (response) => {
