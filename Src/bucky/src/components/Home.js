@@ -14,13 +14,9 @@ class Home extends Component {
         password: ""
     }
 
-    emailHandler = ({ target }) => {
-        this.setState({ email: target.value });
-    }
-
-    pwhandler = ({ target }) => {
-        this.setState({ password: target.value });
-    }
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
     submitHandler = () => {
         myFirebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(()=>{
@@ -55,8 +51,8 @@ class Home extends Component {
                             <img src={icon} id="icon" />
                         </div>
                         <form>
-                            <input type="text" id="login" class="fadeIn second" name="loginName" placeholder="login" onChange={this.emailHandler}></input>
-                            <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password" onChange={this.pwhandler}></input>
+                            <input type="text" id="login" class="fadeIn second" name="email" placeholder="login" onChange={this.onChange}></input>
+                            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password" onChange={this.onChange}></input>
                             <input type="button" class="fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
                         </form>
                         <div id="formFooter">
