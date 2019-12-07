@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import icon from "../images/icon.png";
+// import "./Home.css"
 import {
     withRouter,
     Link
