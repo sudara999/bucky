@@ -49,35 +49,6 @@ class Home extends Component {
 
     render() {
         return (
-            // <div>
-            //     <h1 id="title">Welcome to Bucky</h1>
-            //     <div className={styles["wrapper">
-            //         <div id="formContent">
-            //             <div className={styles["fadeIn first">
-            //             </div>
-            //             <form>
-            //                 <input type="text" id="login" className={styles["fadeIn second" name="email" placeholder="login" onChange={this.onChange}></input>
-            //                 <input type="text" id="password" className={styles["fadeIn third" name="password" placeholder="password" onChange={this.onChange}></input>
-            //                 <input type="button" className={styles["fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
-            //             </form>
-            //             <div id="formFooter">
-            //                 <Link className={styles["underlineHover" to="/signup">No account? Sign Up Here!</Link>
-            //                 <div id="googleSignin">
-            //                     <span> Sign in with Google </span>
-            //                     <button onClick={this.googleSignin}>
-            //                         Sign in
-            //                     </button>
-            //                 </div>
-            //                 <div id="guestSignin">
-            //                     <span> Sign in as guest </span>
-            //                     <button onClick={this.guestSignin}>
-            //                         Sign in
-            //                     </button>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
             <div className={styles["container"]}>
                 <div className={styles["row"]}>
                     <div 
@@ -95,13 +66,13 @@ class Home extends Component {
                         >
                             <div className={styles["card-body"]}>
                                 <h5 className={cx(styles["card-title"], styles["text-center"])}>Sign In</h5>
-                                <form className={styles["form-signin"]}>
+                                <form className={styles["form-signin"]} action="">
                                     <div className={styles["form-label-group"]}>
-                                        <input type="email" id="inputEmail" className={styles["form-control"]} placeholder="Email address" required autofocus />
+                                        <input type="email" id="inputEmail" className={styles["form-control"]} placeholder="Email address" name="email" onChange={this.onChange} required autofocus />
                                         <label for="inputEmail">Email address</label>
                                     </div>
                                     <div className={styles["form-label-group"]}>
-                                        <input type="password" id="inputPassword" className={styles["form-control"]} placeholder="Password" required />
+                                        <input type="password" id="inputPassword" className={styles["form-control"]} placeholder="Password" name="password" onChange={this.onChange} required />
                                         <label for="inputPassword">Password</label>
                                     </div>
                                     <div 
@@ -115,23 +86,27 @@ class Home extends Component {
                                     </div>
                                     <button 
                                         className={cx(
-                                            styles["btn btn-lg"],
+                                            styles["btn"],
+                                            styles["btn-lg"],
                                             styles["btn-primary"], 
                                             styles["btn-block"], 
-                                            styles["text-uppercase"])} 
-                                        type="submit"
+                                            styles["text-uppercase"])}
+                                        onClick={this.submitHandler} 
+                                        type="button"
                                     >
                                         Sign in
                                     </button>
+                                    <Link className={styles.underlineHover} to="/signup">No account? Sign Up Here!</Link>
                                     <hr className={styles["my-4"]} />
                                     <button 
                                         className={cx(
+                                            styles["btn-google"], 
                                             styles["btn"], 
                                             styles["btn-lg"], 
-                                            styles["btn-google"], 
                                             styles["btn-block"], 
                                             styles["text-uppercase"])} 
                                         type="submit"
+                                        onClick={this.googleSignin}
                                     >
                                         <i 
                                             className={cx(
@@ -150,14 +125,14 @@ class Home extends Component {
                                             styles["btn-block"], 
                                             styles["text-uppercase"])} 
                                         type="submit"
+                                        onClick={this.guestSignin}
                                     >
                                         <i className={cx(
                                             styles["fab"], 
-                                            styles["fa-facebook-f"], 
                                             styles["mr-2"])}
                                         >
                                         </i>
-                                        Sign in with Facebook
+                                        Sign in as Guest
                                     </button>
                                 </form>
                             </div>
