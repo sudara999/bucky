@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import icon from "../images/icon.png";
 // import "./Home.css"
 import {
     withRouter,
@@ -49,7 +48,6 @@ class Home extends Component {
                 <div className="wrapper">
                     <div id="formContent">
                         <div className="fadeIn first">
-                            <img src={icon} id="icon" />
                         </div>
                         <form>
                             <input type="text" id="login" class="fadeIn second" name="email" placeholder="login" onChange={this.onChange}></input>
