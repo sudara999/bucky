@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-// import "./MainPage.css"
+
 class MainPage extends Component {
     render() {
         return(

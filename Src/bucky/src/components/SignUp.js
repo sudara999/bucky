@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styles from "./SignUp.css"
 import globalStyles from "./SignUp.module.css"
 import cx from 'classnames';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 class SignUp extends Component {
     render() {
