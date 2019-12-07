@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import icon from "../images/icon.png";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+    withRouter,
     Link
 } from "react-router-dom";
 import myFirebase from "../firebase/firebase";
@@ -25,29 +23,26 @@ class Home extends Component {
     }
 
     submitHandler = () => {
-        myFirebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch((err) => {
-            alert("ERR!");
+        myFirebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(()=>{
+            this.props.history.push("/main");
+        }).catch((err) => {
+            alert("Sorry the user information was incorrect. Please try again.");
         });
     }
 
     googleSignin = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
-        myFirebase.auth().signInWithPopup(provider).then(function (result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
+        myFirebase.auth().signInWithPopup(provider).then((result) => {
+            var user_email = result.user.email;
+            this.props.history.push("/main");
         }).catch(function (error) {
             // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
+            alert("Sorry the authentication failed. Please try again.");
         });
+    }
+
+    guestSignin = () => {
+        this.props.history.push("/main");
     }
 
     render() {
@@ -56,43 +51,34 @@ class Home extends Component {
                 <h1 id="title">Welcome to Bucky</h1>
                 <div className="wrapper">
                     <div id="formContent">
-
                         <div className="fadeIn first">
                             <img src={icon} id="icon" />
                         </div>
-
                         <form>
                             <input type="text" id="login" class="fadeIn second" name="loginName" placeholder="login" onChange={this.emailHandler}></input>
                             <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password" onChange={this.pwhandler}></input>
                             <input type="button" class="fadeIn fourth" value="Log In" onClick={this.submitHandler}></input>
                         </form>
-
                         <div id="formFooter">
-                            <a className="underlineHover" href="#">No account? Sign Up Here!</a>
+                            <Link className="underlineHover" to="/signup">No account? Sign Up Here!</Link>
                             <div id="googleSignin">
                                 <span> Sign in with Google </span>
                                 <button onClick={this.googleSignin}>
                                     Sign in
-                            </button>
+                                </button>
+                            </div>
+                            <div id="guestSignin">
+                                <span> Sign in as guest </span>
+                                <button onClick={this.guestSignin}>
+                                    Sign in
+                                </button>
                             </div>
                         </div>
-
-
-
                     </div>
-
-                    {/* <form action="">
-                    <label htmlFor="username">Username: </label>
-                    <input type="email" name="username" placeholder="Username or Email"/><br></br>
-                    <label htmlFor="password">Password: </label>
-                    <input type="email" name="username" placeholder="Password"/><br></br>
-
-                    <a href="https://www.google.com" style={{color: "magenta", fontSize: "20px", textDecoration: "underline"}}>No account? Signup Here!</a>
-                </form> */}
                 </div>
             </div>
         )
     }
 }
 
-export default Home;
+export default withRouter(Home);
