@@ -5,6 +5,11 @@ import cx from 'classnames';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 class SignUp extends Component {
+
+	componentDidMount(){
+		document.body.style.background = "#DCDCDC";
+	}
+	
     render() {
         return (
             <div className={globalStyles.container}>
@@ -16,7 +21,7 @@ class SignUp extends Component {
 						
 						<div className={globalStyles.row}>
 							<div className={globalStyles["col-lg-12"]}>
-								<h1 id="heading">Sign Up!</h1>
+								<h1 id={globalStyles["heading"]}>Sign Up!</h1>
 							</div>
 						</div>						
 

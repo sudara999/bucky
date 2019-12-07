@@ -29,4 +29,8 @@ class App extends Component {
   }  
 }
 
+var backgroundSignUp = {
+	backgroundColor: "#DCDCDC"
+}
+
 export default App;
