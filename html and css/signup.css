@@ -1,0 +1,12 @@
+body{
+	background-color: #DCDCDC;
+}
+
+#heading {
+	text-align: center;
+	margin-bottom: 5%;
+}
+
+.wide-button {
+	width: 100%;
+}
