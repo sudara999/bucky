@@ -126,9 +126,9 @@ class Home extends Component {
                                     <hr className={styles["my-4"]} />
                                     <button 
                                         className={cx(
-                                            styles["btn"], 
+                                            styles["button"], 
                                             styles["btn-lg"], 
-                                            styles["btn-google"], 
+                                            styles["button-google"], 
                                             styles["btn-block"], 
                                             styles["text-uppercase"])} 
                                         type="submit"

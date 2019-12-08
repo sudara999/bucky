@@ -66,10 +66,7 @@ class SignUp extends Component {
 						<div className={globalStyles["form-row"]}>
 							<div className={cx(globalStyles["form-group"], globalStyles["col-lg-6"])}>
 								<label htmlFor="inputCountry">Country</label>
-								<select id="inputCountry" className={globalStyles["form-control"]}>
-									<option>Choose...</option>
-									<option>...</option>
-								</select>
+								<input type="text" id="inputCountry" className={globalStyles["form-control"]}/>
 							</div>
 							<div className={cx(globalStyles["form-group"], globalStyles["col-lg-6"])}>
 								<label htmlFor="inputState">State</label>

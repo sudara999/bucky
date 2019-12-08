@@ -19,7 +19,7 @@
     width: 100%;
   }
   
-  .form-signin .btn {
+  .form-signin .button {
     font-size: 80%;
     border-radius: 5rem;
     letter-spacing: .1rem;
@@ -90,7 +90,7 @@
     color: #777;
   }
   
-  .btn-google {
+  .button-google {
     color: white;
     background-color: #ea4335;
   }
