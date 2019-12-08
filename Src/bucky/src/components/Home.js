@@ -96,7 +96,9 @@ class Home extends Component {
                                     >
                                         Sign in
                                     </button>
-                                    <Link className={styles.underlineHover} to="/signup">No account? Sign Up Here!</Link>
+                                    <div className={styles.underlineHover}>
+                                        <Link to="/signup"> No account? Sign Up Here!</Link>
+                                    </div>
                                     <hr className={styles["my-4"]} />
                                     <button 
                                         className={cx(
