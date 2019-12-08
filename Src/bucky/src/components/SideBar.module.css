@@ -10236,26 +10236,7 @@ a.l, a.l:hover, a.l:focus {
     transition: all 0.3s;
 }
 
-.onTop{
-  position: relative;
-  top: 0px;
-  left: 0px;
-}
-
-.fixed {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-
-.absolute {
-  position: fixed;
-  left: 0px;
-  top: 0 px;
-}
-
 .wrapper {
-    /* position: relative; */
     display: flex;
     align-items: stretch;
 }
@@ -10270,7 +10251,6 @@ a.l, a.l:hover, a.l:focus {
 }
 
 #sidebar.active {
-    position: relative;
     margin-left: -250px;
 }
 
