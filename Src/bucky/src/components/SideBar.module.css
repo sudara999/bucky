@@ -10239,6 +10239,9 @@ a.l, a.l:hover, a.l:focus {
 .wrapper {
     display: flex;
     align-items: stretch;
+    position: fixed;
+    top: 0px;
+    left: 0px;
 }
 
 #sidebar {
