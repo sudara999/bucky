@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
 import MainPage from './components/MainPage';
 import SignUp from './components/SignUp';
@@ -27,10 +26,6 @@ class App extends Component {
       </Router>
     )
   }  
-}
-
-var backgroundSignUp = {
-	backgroundColor: "#DCDCDC"
 }
 
 export default App;

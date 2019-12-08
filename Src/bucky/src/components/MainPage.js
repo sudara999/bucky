@@ -3,8 +3,6 @@ import { Map, GoogleApiWrapper } from 'google-maps-react';
 import $ from 'jquery';
 import mainStyles from './MainPage.module.css';
 import cx from 'classnames';
-import "../../node_modules/popper.js/dist/popper.js"
-// import "./MainPage.css"
 class MainPage extends Component {
     componentDidMount() {
         
