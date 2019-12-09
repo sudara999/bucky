@@ -43,7 +43,7 @@ class MainPage extends Component {
         let user = myFirebase.auth().currentUser
         if (user != null) {
             db.collection("Users").doc(user.email)
-                .onSnapshot(function (doc) {
+                .onSnapshot((doc) => {
                     this.setState({ isGuest: false });
                     if (doc.exists) {
                         this.setState({ buckyList: doc.data().buckyList });
@@ -121,7 +121,7 @@ class MainPage extends Component {
                         </div>
                     </InfoWindow>
                 </Map>
-                <SideBar />
+                <SideBar fname={this.state.fname} lname={this.state.lname}/>
             </div>
         );
     }
