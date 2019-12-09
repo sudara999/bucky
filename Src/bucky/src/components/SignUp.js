@@ -8,6 +8,31 @@ class SignUp extends Component {
 	componentDidMount(){
 		document.body.style.background = "#DCDCDC";
 	}
+
+	requiredPassword = () => {
+		var text = document.getElementById("password");
+		if(text.value == ""){
+			text.style.background = "orange"
+			return false;
+		}
+		text.style.background = "white"
+		return true;
+	}
+
+	requiredEmail = () => {
+		var text = document.getElementById("email");
+		if(text.value == ""){
+			text.style.background = "orange"
+			return false;
+		}
+		text.style.background = "white"
+		return true;
+	}
+
+	validate = () => {
+		this.requiredEmail()
+		this.requiredPassword()
+	}
 	
     render() {
         return (
@@ -38,12 +63,18 @@ class SignUp extends Component {
 							</div>
 						</div>
 
-						
+						<div className={globalStyles.row}>
+							<div className={cx(globalStyles["form-group"], globalStyles["col-lg-12"])}>
+								<label htmlFor="email">Email: </label>
+								<input id="email" type="email" name="email" className={globalStyles["form-control"]} placeholder="example@domain.com" required/>
+							</div>
+						</div>
+
 						<div className={globalStyles.row}>
 							<div className={globalStyles["col-lg-12"]}>
 								<div className={globalStyles["form-group"]}>
-									<label htmlFor="firstName">Username: </label>
-									<input id="userName" type="text" name="uname" className={globalStyles["form-control"]} placeholder="Select a Username..."/>
+									<label htmlFor="password">password: </label>
+									<input id="password" type="text" name="password" className={globalStyles["form-control"]} placeholder="Enter your password..." required/>
 								</div>
 							</div>
 						</div>
@@ -83,17 +114,8 @@ class SignUp extends Component {
 								<input type="text" className={globalStyles["form-control"]} id="inputZip"/>
 							</div>
 						</div>
-
 						
-						<div className={globalStyles.row}>
-							<div className={cx(globalStyles["form-group"], globalStyles["col-lg-12"])}>
-								<label htmlFor="email">Email: </label>
-								<input id="email" type="email" name="email" className={globalStyles["form-control"]} placeholder="example@domain.com"/>
-							</div>
-						</div>
-
-						
-						<button type="submit" className={cx(globalStyles.btn, globalStyles["btn-success"], globalStyles["wide-button"])}>Register</button>
+						<button type="submit" onClick={this.validate} className={cx(globalStyles.btn, globalStyles["btn-success"], globalStyles["wide-button"])}>Register</button>
 					</form>
 				</div>
 			</div>
