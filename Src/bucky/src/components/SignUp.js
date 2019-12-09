@@ -6,6 +6,19 @@ import myFirebase from "../firebase/firebase";
 
 class SignUp extends Component {
 
+	state = {
+		fname: "",
+		lname: "",
+		dob: "",
+		add1: "",
+		add2: "",
+		country: "",
+		state: "",
+		city: "",
+		zip: "",
+		buckyList: []
+	}
+
 	componentDidMount() {
 		document.body.style.background = "#007bff";
 		document.body.style.background = "linear-gradient(to right, #0062E6, #33AEFF)";
@@ -23,7 +36,19 @@ class SignUp extends Component {
 				displayName: this.state.fname
 			}).then(() => {
 				// Update successful.
-				this.props.history.push("/main");
+				let db = myFirebase.firestore();
+				db.collection("Users").doc(user.email).set({
+					fname: this.state.fname,
+					lname: this.state.lname,
+					dob: this.state.dob,
+					add1: this.state.add1,
+					add2: this.state.add2,
+					country: this.state.country,
+					state: this.state.state,
+					city: this.state.city,
+					zip: this.state.zip,
+					buckyList: this.state.buckyList
+				}).then(() => this.props.history.push("/main")).catch(error => alert(error.message));
 			}).catch(function (error) {
 				// An error happened.
 				var errorMessage = error.message;

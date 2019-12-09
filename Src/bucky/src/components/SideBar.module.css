@@ -10248,7 +10248,8 @@ a.l, a.l:hover, a.l:focus {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    background: #7386D5;
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
     color: #fff;
     transition: all 0.3s;
 }
@@ -10280,12 +10281,12 @@ a[data-toggle="collapse"] {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF)
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -10305,7 +10306,8 @@ a[data-toggle="collapse"] {
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
 }
 ul ul a {
     font-size: 0.9em !important;
