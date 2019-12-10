@@ -131,7 +131,7 @@ class MainPage extends Component {
                         </div>
                     </InfoWindowEx>
                 </Map>
-                <SideBar fname={this.state.fname} lname={this.state.lname} />
+                <SideBar fname={this.state.fname} lname={this.state.lname} buckyList={this.state.buckyList}/>
             </div>
         );
     }

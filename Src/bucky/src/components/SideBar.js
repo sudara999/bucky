@@ -8,15 +8,15 @@ class SideBar extends Component {
         isActive: false,
     }
 
-    // populateDiv () {
-    //     for(var i=0; i < this.props.buckyList.length; i++){
-    //         document.getElementById("places").innerText += this.props.buckyList[i] + "\n";
-    //     }
-    // };
+    populateDiv () {
+        for(var i=0; i < this.props.buckyList.length; i++){
+            document.getElementById("places").innerText += this.props.buckyList[i] + "\n";
+        }
+    };
 
-    // componentDidMount() {
-    //     this.populateDiv();
-    // };
+    componentDidMount() {
+        this.populateDiv();
+    };
 
     changeActive = () => {
         this.setState({ isActive: !this.state.isActive });
