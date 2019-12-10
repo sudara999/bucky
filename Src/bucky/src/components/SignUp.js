@@ -34,8 +34,8 @@ class SignUp extends Component {
 			var user = myFirebase.auth().currentUser;
 			user.updateProfile({
 				displayName: this.state.fname
-			}).then(() => {
-				// Update successful.
+			});
+			{
 				let db = myFirebase.firestore();
 				db.collection("Users").doc(user.email).set({
 					fname: this.state.fname,
@@ -49,17 +49,13 @@ class SignUp extends Component {
 					zip: this.state.zip,
 					buckyList: this.state.buckyList
 				}).then(() => this.props.history.push("/main")).catch(error => alert(error.message));
-			}).catch(function (error) {
-				// An error happened.
-				var errorMessage = error.message;
-				alert(errorMessage);
-			});
+			}
 		})
-			.catch(function (error) {
-				// Handle Errors here.
-				var errorMessage = error.message;
-				alert(errorMessage);
-			});
+		.catch(function (error) {
+			// Handle Errors here.
+			var errorMessage = error.message;
+			alert(errorMessage);
+		});
 	}
 
 	render() {
@@ -69,7 +65,7 @@ class SignUp extends Component {
 					<div className={globalStyles["col-lg-3"]}></div>
 					<div className={globalStyles["col-lg-6"]}>
 						<div id="ui">
-							<form className={globalStyles["form-group"]}>
+							<form className={globalStyles["form-group"]} onSubmit={this.submitHandler}>
 
 								<div className={globalStyles.row}>
 									<div className={globalStyles["col-lg-12"]}>
@@ -151,7 +147,7 @@ class SignUp extends Component {
 								</div>
 
 								{/* Submit button */}
-								<button type="submit" onClick={this.submitHandler} className={cx(globalStyles.btn, globalStyles["btn-success"], globalStyles["wide-button"])}>Register</button>
+								<button type="submit" className={cx(globalStyles.btn, globalStyles["btn-success"], globalStyles["wide-button"])}>Register</button>
 							</form>
 						</div>
 					</div>

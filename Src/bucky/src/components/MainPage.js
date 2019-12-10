@@ -4,6 +4,7 @@ import styles from './MainPage.module.css';
 import cx from 'classnames';
 import SideBar from "./SideBar";
 import myFirebase from "../firebase/firebase";
+
 class MainPage extends Component {
 
     state = {
@@ -43,7 +44,7 @@ class MainPage extends Component {
         let user = myFirebase.auth().currentUser
         if (user != null) {
             db.collection("Users").doc(user.email)
-                .onSnapshot(function (doc) {
+                .onSnapshot( (doc) => {
                     this.setState({ isGuest: false });
                     if (doc.exists) {
                         this.setState({ buckyList: doc.data().buckyList });
@@ -69,6 +70,7 @@ class MainPage extends Component {
     displayMarkers = () => {
         return this.state.stores.map((store, index) => {
             return <Marker key={index} name={store.name} id={index}
+                addToBucky={this.addToBucky}
                 description={store.description}
                 position={{
                     lat: store.latitude,
@@ -94,8 +96,10 @@ class MainPage extends Component {
         }
     };
 
-    addToBucky = () =>{
-        this.setState({ buckyList: 1 });
+    addToBucky = () => {
+        console.log("What!");
+        this.setState({ buckyList: this.state.buckyList.concat(this.state.selectedPlace.name) });
+        console.log(this.state.buckyList);
     }
 
     render() {
@@ -113,11 +117,12 @@ class MainPage extends Component {
                         marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}
                         onClose={this.onClose}
+                        work={this.addToBucky}
                     >
                         <div>
                             <h4>{this.state.selectedPlace.name}</h4>
                             <p>{this.state.selectedPlace.description}</p>
-                            <button className={cx(styles["btn"], styles["btn-success"], styles["float-right"])} onClick={this.addToBucky}>Add to bucky</button>
+                            <button className={cx(styles["btn"], styles["btn-success"], styles["float-right"])} onClick={this.props.work}>Add to bucky</button>
                         </div>
                     </InfoWindow>
                 </Map>
