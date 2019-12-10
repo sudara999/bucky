@@ -89,17 +89,17 @@ class Home extends Component {
                             <div className={styles["card-body"]}>
                                 <h5 className={cx(styles["card-title"], styles["text-center"])}>Sign In to Bucky!</h5>
                                 <div className={styles["alert"]} style={{display: this.state.alert? "block": "none"}}>
-                                        <span class={styles["closebtn"]} onClick={this.alertOffHandler}>&times;</span>
+                                        <span className={styles["closebtn"]} onClick={this.alertOffHandler}>&times;</span>
                                         {this.state.alertMessage}
                                 </div>
                                 <form className={styles["form-signin"]} onSubmit={this.submitHandler} autoComplete="on">
                                     <div className={styles["form-label-group"]}>
                                         <input type="email" id="inputEmail" className={styles["form-control"]} placeholder="Email address" name="email" onChange={this.onChange} required autoFocus autoComplete="username" />
-                                        <label for="inputEmail">Email address</label>
+                                        <label htmlFor="inputEmail">Email address</label>
                                     </div>
                                     <div className={styles["form-label-group"]}>
                                         <input type="password" id="inputPassword" className={styles["form-control"]} placeholder="Password" name="password" onChange={this.onChange} required autoComplete={this.rememberPw()} />
-                                        <label for="inputPassword">Password</label>
+                                        <label htmlFor="inputPassword">Password</label>
                                     </div>
                                     <div
                                         className={cx(
@@ -108,7 +108,7 @@ class Home extends Component {
                                             styles["mb-3"])}
                                     >
                                         <input type="checkbox" className={styles["custom-control-input"]} id="customCheck1" onClick={this.checkHandler} defaultChecked />
-                                        <label className={styles["custom-control-label"]} for="customCheck1">Remember password</label>
+                                        <label className={styles["custom-control-label"]} htmlFor="customCheck1">Remember password</label>
                                     </div>
                                     <button
                                         className={cx(

@@ -12,8 +12,11 @@ class MainPage extends Component {
         activeMarker: {},          //Shows the active marker upon click
         selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
         stores: [],
+        isUser: false,
+        //if isUser is true, the following would be updated on the database too
+        fname: "",
+        lname: "",
         buckyList: [],
-        isGuest: true,
     };
 
     componentDidMount() {
@@ -41,36 +44,39 @@ class MainPage extends Component {
     }
 
     loadUserData = (db) => {
-        let user = myFirebase.auth().currentUser
+        let user = myFirebase.auth().currentUser;
         if (user != null) {
-            db.collection("Users").doc(user.email)
-                .onSnapshot((doc) => {
-                    this.setState({ isGuest: false });
-                    if (doc.exists) {
-                        this.setState({ buckyList: doc.data().buckyList });
-                    }
-                    else {
-                        db.collection("Users").doc(user.email).set({
-                            fname: "",
-                            lname: "",
-                            dob: "",
-                            add1: "",
-                            add2: "",
-                            country: "",
-                            state: "",
-                            city: "",
-                            zip: "",
-                            buckyList: []
-                        });
-                    }
-                });
+            this.setState({ isUser: true });
+            db.collection("Users").doc(user.email).get().then(doc => {
+                if (doc.exists) {
+                    let userData = doc.data();
+                    this.setState({
+                        buckyList: userData.buckyList,
+                        fname: userData.fname,
+                        lname: userData.lname,
+                    });
+                }
+                else {
+                    db.collection("Users").doc(user.email).set({
+                        fname: "",
+                        lname: "",
+                        dob: "",
+                        add1: "",
+                        add2: "",
+                        country: "",
+                        state: "",
+                        city: "",
+                        zip: "",
+                        buckyList: []
+                    });
+                }
+            }).catch(error => alert(error.message));
         }
     }
 
     displayMarkers = () => {
         return this.state.stores.map((store, index) => {
             return <Marker key={index} name={store.name} id={index}
-                addToBucky={this.addToBucky}
                 description={store.description}
                 position={{
                     lat: store.latitude,
@@ -97,9 +103,7 @@ class MainPage extends Component {
     };
 
     addToBucky = () => {
-        console.log("What!");
-        this.setState({ buckyList: this.state.buckyList.concat(this.state.selectedPlace.name) });
-        console.log(this.state.buckyList);
+        console.log("Add to bucky");
     }
 
     render() {
@@ -111,22 +115,20 @@ class MainPage extends Component {
                     initialCenter={{ lat: 36.3560818, lng: 127.6840431 }}
                     defaultOptions={{ mapTypeControl: false }}
                 >
-
                     {this.displayMarkers()}
                     <InfoWindow
                         marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}
                         onClose={this.onClose}
-                        work={this.addToBucky}
                     >
                         <div>
                             <h4>{this.state.selectedPlace.name}</h4>
                             <p>{this.state.selectedPlace.description}</p>
-                            <button className={cx(styles["btn"], styles["btn-success"], styles["float-right"])} onClick={this.props.work}>Add to bucky</button>
+                            <button className={cx(styles["btn"], styles["btn-success"], styles["float-right"])}>Add to bucky</button>
                         </div>
                     </InfoWindow>
                 </Map>
-                <SideBar fname={this.state.fname} lname={this.state.lname}/>
+                <SideBar fname={this.state.fname} lname={this.state.lname} />
             </div>
         );
     }

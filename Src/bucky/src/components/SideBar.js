@@ -30,9 +30,9 @@ class SideBar extends Component {
                         <h3>Bucky</h3>
                     </div>
                     <ul className={cx(styles["list-unstyled"], styles["components"])}>
-                        <p>Welcome Back{this.props.fname} </p>
+                        <p>Welcome Back {this.props.fname} </p>
                         <li>
-                            <a className={styles.l} href="#">Saved Places</a>
+                            <a className={styles.l}>Saved Places</a>
                             <p id="places"></p>
                         </li>
                         {/* <li>
