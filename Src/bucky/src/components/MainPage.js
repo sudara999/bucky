@@ -106,7 +106,40 @@ class MainPage extends Component {
     };
 
     addToBucky = () => {
-        console.log("Add to bucky");
+        var index = this.state.buckyList.indexOf(this.state.selectedPlace.name);
+        if (index === -1) {
+            this.state.buckyList.push(this.state.selectedPlace.name);
+            let user = myFirebase.auth().currentUser;
+            if (user != null) {
+                var userDocument = myFirebase.firestore().collection("Users").doc(user.email);
+
+                return userDocument.update({
+                    buckyList: this.state.buckyList
+                })
+            }
+        }
+        else {
+            console.log("Place is already in bucky!");
+        }
+    }
+
+    removeFromBucky = (place) => {
+        var index = this.state.buckyList.indexOf(place);
+        if (index > -1) {
+            console.log("inside if");
+            this.state.buckyList.splice(index, 1);
+            let user = myFirebase.auth().currentUser;
+            console.log("removed from both state and database");
+            if (user != null) {
+                var userDocument = myFirebase.firestore().collection("Users").doc(user.email);
+                console.log("removed from both state and database (user is logged in)");
+                return userDocument.update({
+                    buckyList: this.state.buckyList
+                })
+            }
+        }
+
+
     }
 
     render() {
@@ -117,13 +150,14 @@ class MainPage extends Component {
                     zoom={7.27}
                     initialCenter={{ lat: 36.3560818, lng: 127.6840431 }}
                     defaultOptions={{ mapTypeControl: false }}
+                    mapTypeControl={false}
                 >
                     {this.displayMarkers()}
                     <InfoWindowEx
                         marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}
                         onClose={this.onClose}
-                    >   
+                    >
                         <div>
                             <h4>{this.state.selectedPlace.name}</h4>
                             <p>{this.state.selectedPlace.description}</p>
@@ -131,7 +165,7 @@ class MainPage extends Component {
                         </div>
                     </InfoWindowEx>
                 </Map>
-                <SideBar fname={this.state.fname} lname={this.state.lname} buckyList={this.state.buckyList}/>
+                <SideBar removeFromBucky={this.removeFromBucky} fname={this.state.fname} lname={this.state.lname} buckyList={this.state.buckyList} />
             </div>
         );
     }
@@ -139,25 +173,25 @@ class MainPage extends Component {
 
 class InfoWindowEx extends Component {
     constructor(props) {
-      super(props);
-      this.infoWindowRef = React.createRef();
-      this.contentElement = document.createElement(`div`);
+        super(props);
+        this.infoWindowRef = React.createRef();
+        this.contentElement = document.createElement(`div`);
     }
-  
+
     componentDidUpdate(prevProps) {
-      if (this.props.children !== prevProps.children) {
-        ReactDOM.render(
-          React.Children.only(this.props.children),
-          this.contentElement
-        );
-        this.infoWindowRef.current.infowindow.setContent(this.contentElement);
-      }
+        if (this.props.children !== prevProps.children) {
+            ReactDOM.render(
+                React.Children.only(this.props.children),
+                this.contentElement
+            );
+            this.infoWindowRef.current.infowindow.setContent(this.contentElement);
+        }
     }
-  
+
     render() {
-      return <InfoWindow ref={this.infoWindowRef} {...this.props} />;
+        return <InfoWindow ref={this.infoWindowRef} {...this.props} />;
     }
-  }
+}
 
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyCT_Fn0Zrkp8a2k-G5MeYTMlxj6jW2iW_E'
