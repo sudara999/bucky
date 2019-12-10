@@ -48,9 +48,7 @@ class MainPage extends Component {
         let user = myFirebase.auth().currentUser;
         if (user != null) {
             this.setState({ isUser: true });
-            console.log(user);
-            console.log(user.email);
-            db.collection("Users").doc(user.email).get().then(doc => {
+            db.collection("Users").doc( user.email || user.providerData[0].email ).get().then(doc => {
                 if (doc.exists) {
                     let userData = doc.data();
                     this.setState({
