@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from "react-dom";
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 import styles from './MainPage.module.css';
 import cx from 'classnames';
@@ -47,6 +48,8 @@ class MainPage extends Component {
         let user = myFirebase.auth().currentUser;
         if (user != null) {
             this.setState({ isUser: true });
+            console.log(user);
+            console.log(user.email);
             db.collection("Users").doc(user.email).get().then(doc => {
                 if (doc.exists) {
                     let userData = doc.data();
@@ -116,23 +119,45 @@ class MainPage extends Component {
                     defaultOptions={{ mapTypeControl: false }}
                 >
                     {this.displayMarkers()}
-                    <InfoWindow
+                    <InfoWindowEx
                         marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}
                         onClose={this.onClose}
-                    >
+                    >   
                         <div>
                             <h4>{this.state.selectedPlace.name}</h4>
                             <p>{this.state.selectedPlace.description}</p>
-                            <button className={cx(styles["btn"], styles["btn-success"], styles["float-right"])}>Add to bucky</button>
+                            <button type="button" onClick={this.addToBucky} className={cx(styles["btn"], styles["btn-success"], styles["float-right"])}>Add to bucky</button>
                         </div>
-                    </InfoWindow>
+                    </InfoWindowEx>
                 </Map>
                 <SideBar fname={this.state.fname} lname={this.state.lname} />
             </div>
         );
     }
 }
+
+class InfoWindowEx extends Component {
+    constructor(props) {
+      super(props);
+      this.infoWindowRef = React.createRef();
+      this.contentElement = document.createElement(`div`);
+    }
+  
+    componentDidUpdate(prevProps) {
+      if (this.props.children !== prevProps.children) {
+        ReactDOM.render(
+          React.Children.only(this.props.children),
+          this.contentElement
+        );
+        this.infoWindowRef.current.infowindow.setContent(this.contentElement);
+      }
+    }
+  
+    render() {
+      return <InfoWindow ref={this.infoWindowRef} {...this.props} />;
+    }
+  }
 
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyCT_Fn0Zrkp8a2k-G5MeYTMlxj6jW2iW_E'
