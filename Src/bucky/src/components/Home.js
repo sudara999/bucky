@@ -54,6 +54,7 @@ class Home extends Component {
     }
 
     guestSignin = () => {
+        firebase.auth().signOut();
         this.props.history.push("/main");
     }
 

@@ -48,7 +48,7 @@ class MainPage extends Component {
         let user = myFirebase.auth().currentUser;
         if (user != null) {
             this.setState({ isUser: true });
-            db.collection("Users").doc( user.email || user.providerData[0].email ).get().then(doc => {
+            db.collection("Users").doc(user.email || user.providerData[0].email).get().then(doc => {
                 if (doc.exists) {
                     let userData = doc.data();
                     this.setState({
@@ -58,7 +58,7 @@ class MainPage extends Component {
                     });
                 }
                 else {
-                    db.collection("Users").doc(user.email).set({
+                    db.collection("Users").doc(user.email || user.providerData[0].email).set({
                         fname: "",
                         lname: "",
                         dob: "",
@@ -106,15 +106,18 @@ class MainPage extends Component {
     addToBucky = () => {
         var index = this.state.buckyList.indexOf(this.state.selectedPlace.name);
         if (index === -1) {
-            this.state.buckyList.push(this.state.selectedPlace.name);
-            let user = myFirebase.auth().currentUser;
-            if (user != null) {
-                var userDocument = myFirebase.firestore().collection("Users").doc(user.email);
-
-                return userDocument.update({
-                    buckyList: this.state.buckyList
-                })
-            }
+            // this.state.buckyList.push(this.state.selectedPlace.name);
+            this.setState({
+                buckyList: this.state.buckyList.concat(this.state.selectedPlace.name)
+            }, () => {
+                let user = myFirebase.auth().currentUser;
+                if (user != null) {
+                    var userDocument = myFirebase.firestore().collection("Users").doc(user.email || user.providerData[0].email);
+                    userDocument.update({
+                        buckyList: this.state.buckyList
+                    }).then(console.log("DONE"));
+                }
+            });
         }
         else {
             console.log("Place is already in bucky!");
@@ -125,19 +128,22 @@ class MainPage extends Component {
         var index = this.state.buckyList.indexOf(place);
         if (index > -1) {
             console.log("inside if");
-            this.state.buckyList.splice(index, 1);
-            let user = myFirebase.auth().currentUser;
-            console.log("removed from both state and database");
-            if (user != null) {
-                var userDocument = myFirebase.firestore().collection("Users").doc(user.email);
-                console.log("removed from both state and database (user is logged in)");
-                return userDocument.update({
-                    buckyList: this.state.buckyList
-                })
-            }
+            // this.state.buckyList.splice(index, 1);
+            this.setState(prevState => {
+                prevState.buckyList.splice(index, 1);
+                return { buckyList: prevState.buckyList }
+            }, () => {
+                let user = myFirebase.auth().currentUser;
+                console.log("removed from both state and database");
+                if (user != null) {
+                    var userDocument = myFirebase.firestore().collection("Users").doc(user.email || user.providerData[0].email);
+                    console.log("removed from both state and database (user is logged in)");
+                    userDocument.update({
+                        buckyList: this.state.buckyList
+                    })
+                }
+            });
         }
-
-
     }
 
     render() {

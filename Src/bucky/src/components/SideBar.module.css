@@ -74,7 +74,7 @@
   
   p {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
   }
   
   abbr[title],
@@ -10286,12 +10286,12 @@ a[data-toggle="collapse"] {
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
+    padding: 0;
 }
 
 #sidebar ul p {
     color: #fff;
-    padding: 10px;
+    padding: 0px;
 }
 
 #sidebar ul li a {
@@ -10316,9 +10316,13 @@ ul ul a {
 }
 
  #sidebarCollapse {
+    position: relative;
+    top: 5px;
+    left: 5px;
     width: 40px;
     height: 40px;
     background: #f5f5f5;
+    border-radius: 25%;
 }
 
 #sidebarCollapse span {
@@ -10349,6 +10353,10 @@ ul ul a {
     /* all bars are visible */
     opacity: 1;
     margin: 5px auto;
+}
+
+p {
+  margin-bottom: 0rem !important;
 }
 
 @media (max-width: 768px) {

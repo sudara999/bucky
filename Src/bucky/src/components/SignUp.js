@@ -16,7 +16,9 @@ class SignUp extends Component {
 		state: "",
 		city: "",
 		zip: "",
-		buckyList: []
+		buckyList: [],
+		alert: false,
+        alertMessage: "This is an alert message",
 	}
 
 	componentDidMount() {
@@ -48,15 +50,27 @@ class SignUp extends Component {
 					city: this.state.city,
 					zip: this.state.zip,
 					buckyList: this.state.buckyList
-				}).then(() => this.props.history.push("/main")).catch(error => alert(error.message));
+				}).then(() => this.props.history.push("/main")).catch(error => {
+					// alert(error.message);
+					this.setState({
+						alert: true,
+						alertMessage: error.message,
+					});
+				});
 			}
 		})
-		.catch(function (error) {
+		.catch( (error) => {
 			// Handle Errors here.
-			var errorMessage = error.message;
-			alert(errorMessage);
+			this.setState({
+				alert: true,
+				alertMessage: error.message,
+			});
 		});
 	}
+
+	alertOffHandler = () => {
+        this.setState({ alert: false });
+    }
 
 	render() {
 		return (
@@ -72,6 +86,11 @@ class SignUp extends Component {
 										<h1 id={globalStyles["heading"]}>Sign Up!</h1>
 									</div>
 								</div>
+
+								<div className={globalStyles["alert"]} style={{display: this.state.alert? "block": "none"}}>
+                                        <span className={globalStyles["closebtn"]} onClick={this.alertOffHandler}>&times;</span>
+                                        {this.state.alertMessage}
+                                </div>
 
 								{/* User info: Name */}
 								<div className={globalStyles.row}>

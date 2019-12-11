@@ -12,6 +12,28 @@ body{
 	width: 100%;
 }
 
+.alert {
+  padding: 20px;
+  background-color: #ff2600;
+  color: white;
+  border-radius: 0.50rem;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
