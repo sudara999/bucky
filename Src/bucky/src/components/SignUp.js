@@ -97,7 +97,7 @@ class SignUp extends Component {
 									<div className={globalStyles["col-lg-6"]}>
 										<div className={globalStyles["form-group"]}>
 											<label htmlFor="firstName">*First Name: </label>
-											<input id="firstName" type="text" name="fname" className={globalStyles["form-control"]} placeholder="Enter your First name..." onChange={this.onChange} required />
+											<input id="firstName" type="text" name="fname" className={globalStyles["form-control"]} placeholder="Enter your First name..." onChange={this.onChange} autoFocus required />
 										</div>
 									</div>
 									<div className={globalStyles["col-lg-6"]}>

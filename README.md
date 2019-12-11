@@ -1,5 +1,14 @@
-# Bucky List: CSE 316 Web App
+# Bucky
+## A web application to explore places around the world.
+### https://buckydb-4e626.firebaseapp.com/
+*******************************************************************
+### Sign in Page
+![Sign In Page](./README_pictures/signin.png)
 
-Web application to explore places around the world.
+### Signup page
+![Signup Page](./README_pictures/signup.png)
 
-## !Refined Project Description goes here!
+### Main page
+![Main page](./README_pictures/main.png)
+
+![Main page](./README_pictures/main2.png)
