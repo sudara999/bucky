@@ -1,5 +1,5 @@
 # Bucky
-## A web application to explore places around the world.
+### A web application to explore places around the world.
 Access the web app at https://buckydb-4e626.firebaseapp.com/
 *******************************************************************
 ## Sign in Page
